@@ -19,12 +19,12 @@ impl<'a> Machine<'a> {
         let pc = *self.registers.get(registers::Register::pc as usize).expect("Error while getting the PC Register");
         let instruction = self.memory.read(pc as usize).or(Err(""))?;
         let operator: u8 = (instruction >> 8) as u8;
-        match instruction {
-            1 => {
+        match operator {
+            0b1 => {
                 println!("FOUND THE FIRST INSTRUCTION");
             }
-            _ => {
-                unreachable!()
+            c => {
+                println!("{}", c);
             }
         }
         Ok(())
