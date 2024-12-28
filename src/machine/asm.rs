@@ -1,4 +1,5 @@
 use super::memory::{Addressable, LinearMemory};
+use super::instructions::Instruction;
 use super::registers;
 
 
@@ -16,17 +17,19 @@ impl<'a> Machine<'a> {
     }
 
     pub fn step(&mut self) -> Result<(), &'static str> {
-        let pc = *self.registers.get(registers::Register::pc as usize).expect("Error while getting the PC Register");
+        let pc = *self.registers.get(registers::Register::PC as usize).expect("Error while getting the PC Register");
         let instruction = self.memory.read(pc as usize).or(Err(""))?;
         let operator: u8 = (instruction >> 8) as u8;
-        match operator {
-            0b1 => {
-                println!("FOUND THE FIRST INSTRUCTION");
+        let _operand: u8 = (instruction & 0xFF) as u8;
+        match Instruction::from(operator) {
+            Instruction::Print => {
+                println!("FOUND PRINT STATEMENT");
             }
             c => {
-                println!("{}", c);
+                println!("{:?}", c);
             }
         }
+        self.registers[registers::Register::PC as usize] = pc + 1;
         Ok(())
     }
 }
