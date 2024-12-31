@@ -4,3 +4,11 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+
+[[bin]]
+name = "machine"
+path = "src/machine/main.rs"
+
+[[bin]]
+name = "assembler"
+path = "src/assembler/main.rs"

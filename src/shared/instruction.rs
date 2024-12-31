@@ -6,6 +6,7 @@ pub enum Instruction {
     PopStack,
     AddStack,
     LoadRegister,
+    Halt,
 }
 
 impl From<u8> for Instruction {
@@ -17,6 +18,7 @@ impl From<u8> for Instruction {
             3 =>   Self::PopStack,
             4 =>   Self::AddStack,
             5 =>   Self::LoadRegister,
+            6 =>   Self::Halt,
             _ => panic!("Invalid instruction")
         }
     }
